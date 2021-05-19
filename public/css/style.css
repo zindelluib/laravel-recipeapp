@@ -1,0 +1,70 @@
+*{
+	box-sizing: border-box;
+
+}
+
+.flex-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+#recipe-container {
+	display: flex;
+	/*justify-content: center;*/
+	align-items: center;
+	flex-direction:column;
+}
+#back,#register-btn , #login-btn,#recipeformbtn {
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	color: #fff;
+	border: 1px solid #4CAF50;
+	height: 30px;
+	background-color: #4CAF50;
+}
+
+.form-box {
+	
+	margin-bottom: 20px;
+}
+
+.form-input {
+	height: 29px;
+	width: 100%;
+    border: 1px solid black;
+    border-radius: 9px;
+    padding: 5px;
+    font-size: 0.9375em;
+}
+
+
+#login-logo {
+    height: 127px;
+    width: 132px;
+}
+
+table {
+	width: 70%;
+	text-align: left;
+}
+thead {
+	background-color: #C5CAE9;
+	color: #212121;
+}
+
+
+td,th,table {
+	/*border: 1px solid transparent;*/
+	border-collapse: collapse;
+	padding: 15px;
+}
+tbody > tr{
+	border-bottom: 1px solid #BDBDBD;
+}
+
+.error {
+	color: red;
+}
