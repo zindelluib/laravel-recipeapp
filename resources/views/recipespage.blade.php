@@ -1,5 +1,5 @@
 @include('parts.header',['title' => 'Recipes'])	
-<a href="">Add New Recipe</a>
+<a href="{{ url('user-recipes/create') }}">Add New Recipe</a>
 <a href="{{ url('logout') }}">Logout</a>
 	<table>
 			<thead>
@@ -10,24 +10,17 @@
 				</tr>
 			</thead>
 			<tbody>
+				@foreach($recipes as $recipe)
 				<tr>
-					<td>Fried Chicken</td>
-					<td>A delicious fried chicken</td>
+					<td>{{ $recipe->name}}</td>
+					<td>{{ $recipe->description }}</td>
 					<td>
-						<a href="#">View</a>
+						<a href="{{ url('user-recipes/' . $recipe->id)}}">View</a>
 						<a href="#">Edit</a>
 						<a href="#">Delete</a>
 					</td>
 				</tr>
-				<tr>
-					<td>Adobo</td>
-					<td>Simple Adobo Recipe</td>
-					<td>
-						<a href="#">View</a>
-						<a href="#">Edit</a>
-						<a href="#">Delete</a>
-					</td>
-				</tr>
+				@endforeach()
 			</tbody>
 		</table>
 

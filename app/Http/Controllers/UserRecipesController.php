@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Recipe;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class UserRecipesController extends Controller
 {
     /**
@@ -12,8 +12,10 @@ class UserRecipesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('recipespage');
+    {   
+        $recipes  =  Recipe::where('user_id',Auth::id())
+                    ->get();
+        return view('recipespage',['recipes' => $recipes]);
     }
 
     /**
@@ -23,7 +25,7 @@ class UserRecipesController extends Controller
      */
     public function create()
     {
-        //
+        return view('recipeform');
     }
 
     /**
@@ -34,7 +36,18 @@ class UserRecipesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $validated  = $request->validate([
+            'recipename' => 'required',
+        ]);
+
+        $recipe  = new Recipe;
+        $recipe->name  = $request->input('recipename');
+        $recipe->description  = $request->input('description');
+        $recipe->user_id  = Auth::id();
+        $saved  = $recipe->save();
+        
+        return redirect('user-recipes');
     }
 
     /**
@@ -45,7 +58,15 @@ class UserRecipesController extends Controller
      */
     public function show($id)
     {
-        //
+        $recipe  = Recipe::find($id);
+        if($recipe){
+            return view('recipedetail',['recipe' => $recipe]);
+        }
+
+        return redirect('user-recipes');
+
+
+        
     }
 
     /**
@@ -81,4 +102,6 @@ class UserRecipesController extends Controller
     {
         //
     }
+
+   
 }

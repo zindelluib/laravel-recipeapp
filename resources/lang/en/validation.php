@@ -137,6 +137,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'recipename' => [
+            'required' => 'The Recipe Name field is required'
+        ]
     ],
 
     /*
