@@ -25,7 +25,10 @@ class UserRecipesController extends Controller
      */
     public function create()
     {
-        return view('recipeform');
+        return view('recipeform',[
+            'editmode' => false,
+            'title' => 'Add New Recipe'
+        ]);
     }
 
     /**
@@ -77,7 +80,23 @@ class UserRecipesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recipe = Recipe::where('id',$id)
+                        ->where('user_id',Auth::id())
+                        ->first();
+
+        if($recipe){
+
+          return view('recipeform',[
+                'editmode' => true,
+                'title' => 'Edit Recipe',
+                'recipe' => $recipe
+            ]);
+        }
+
+        return redirect('user-recipes');
+        
+
+       
     }
 
     /**
@@ -89,7 +108,25 @@ class UserRecipesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $recipe = Recipe::where('id',$id)
+                           ->where('user_id',Auth::id())
+                           ->first();
+
+        //TODO Validate form data
+        if($recipe){
+           $recipe->name  = $request->input('recipename');
+           $recipe->description = $request->input('description');
+           $recipe->save();
+            return response()->json([
+                'message' => 'Recipe Updated!',
+                'redirecto' => url('user-recipes')
+
+            ]);
+            
+        }else{
+             return response()->json(['message' => 'Recipe not found!'],404);
+        }
+        
     }
 
     /**
@@ -100,7 +137,15 @@ class UserRecipesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $recipe = Recipe::where('id',$id)
+                           ->where('user_id',Auth::id())
+                           ->first();
+        if($recipe){
+            $deleted  = $recipe->delete();
+            return response()->json(['message' => 'Recipe deleted!']);
+        }else{
+             return response()->json(['message' => 'Recipe not found!'],404);
+        }
     }
 
    

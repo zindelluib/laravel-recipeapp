@@ -28,4 +28,5 @@
 	<div class="flex-container">
 		<p>No account? <a href="{{ url('register') }}" target="_blank">Click here to Register</a></p>
 	</div>
-@include('parts.footer')	
+</body>
+</html>	
